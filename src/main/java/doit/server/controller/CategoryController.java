@@ -18,12 +18,12 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     // Id 조회
-    @GetMapping("/cagetgory/{categoryId}")
+    @GetMapping("/categories/{categoryId}")
     public CategoryResponse findOneCategory(@PathVariable Long categoryId) {
         return categoryService.findOneCategory(categoryId);
     }
 
-    @GetMapping("/category")
+    @GetMapping("/categories")
     public List<CategoryResponse> findAllCategories() {
         return categoryService.findAllCategories();
     }
@@ -31,6 +31,11 @@ public class CategoryController {
     @GetMapping("/categories/search")
     public List<CategoryResponse> searchCategories(@RequestParam String categoryName) {
         return categoryService.searchCategoriesWithName(categoryName);
+    }
+
+    @PostMapping("/categories")
+    public CategoryResponse createNewCateogry(@RequestBody CreateCategoryRequest request){
+        return null;
     }
 
 }
