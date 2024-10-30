@@ -13,6 +13,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional // 이 어노테이션이 추가되어야합니다! JPA 관련된 이유니까 한 번 찾아보세용
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;

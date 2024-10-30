@@ -18,7 +18,7 @@ public class Category {
     private Long id;
     private String exerciseName;
     private Integer minute;
-    private String exerciseType;
+    private String exerciseType; // 해당 코드 Enum으로 변경해보는 것은 어떨까요?
     private String place;
 
     @Builder
