@@ -29,4 +29,23 @@ public class Category {
         this.place = place;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setExerciseName(String exerciseName) {
+        this.exerciseName = exerciseName;
+    }
+
+    public void setMinute(Integer minute) {
+        this.minute = minute;
+    }
+
+    public void setExerciseType(String exerciseType) {
+        this.exerciseType = exerciseType;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
 }

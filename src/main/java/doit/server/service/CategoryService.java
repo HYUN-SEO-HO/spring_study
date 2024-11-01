@@ -1,11 +1,14 @@
 package doit.server.service;
 
 import doit.server.controller.dto.CategoryResponse;
+import doit.server.controller.dto.CreateCategoryRequest;
 import doit.server.repository.Category;
 import doit.server.repository.CategoryRepository;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +16,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
@@ -64,15 +68,27 @@ public class CategoryService {
                 .map(CategoryResponse::from)
                 .toList();
     }
-}
 
-/**
- * @Id
- *     @GeneratedValue(strategy = GenerationType.AUTO)
- *     @Column(name = "category_id")
- *     private Long id;
- *     private String exerciseName;
- *     private Integer minute;
- *     private String exerciseType;
- *     private String place;
- */
+    public Category createCategory(Category category) {
+        return categoryRepository.save(category);
+    }
+
+    public CategoryResponse updateCategory(Long categoryId, CreateCategoryRequest request) {
+        Category category = categoryRepository.findById(categoryId)
+                .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 아이디입니다."));
+
+        category.setExerciseName(request.getExerciseName());
+        category.setMinute(request.getMinute());
+        category.setExerciseType(request.getExerciseType());
+        category.setPlace(request.getPlace());
+
+        return CategoryResponse.from(categoryRepository.save(category));
+    }
+
+    public void deleteCategory(Long categoryId) {
+        if (!categoryRepository.existsById(categoryId)) {
+            throw new IllegalArgumentException("존재하지 않는 아이디입니다.");
+        }
+        categoryRepository.deleteById(categoryId);
+    }
+}
